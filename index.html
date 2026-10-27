@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080A12">
+<meta name="description" content="NIBU — YOUR LIFE, ONE LITTLE CREATURE. Compagnon numerique de gestion du quotidien : capsules, budget hebdomadaire, rendez-vous, commandes.">
+<title>NIBU — YOUR LIFE, ONE LITTLE CREATURE.</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="assets/nibu.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/nibu.png">
+</head>
+<body>
+
+<!-- ===== Bandeau d'information : enregistrement local ===== -->
+<div class="topbar" role="region" aria-label="Information sur l'enregistrement local">
+  <span class="topbar__led" aria-hidden="true"></span>
+  <strong>V1 — DONNEES LOCALES</strong>
+  <span>Ecrites uniquement dans ce navigateur. Non chiffrees, non synchronisees entre appareils. <a href="#reglages" data-nav="reglages">En savoir plus</a></span>
+</div>
+
+<!-- ===== En-tete ===== -->
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="logo" href="#accueil" data-nav="accueil" aria-label="NIBU, retour a l accueil">
+      <span class="logo__mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="34" height="34" focusable="false">
+          <defs>
+            <linearGradient id="lgMark" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#F2F5FF"/>
+              <stop offset=".35" stop-color="#C5D0E2"/>
+              <stop offset=".6" stop-color="#50F6FF"/>
+              <stop offset="1" stop-color="#9B7BFF"/>
+            </linearGradient>
+          </defs>
+          <rect x="4" y="6" width="40" height="36" rx="12" fill="#0C101E" stroke="url(#lgMark)" stroke-width="2"/>
+          <circle cx="17" cy="24" r="4.4" fill="#50F6FF"/>
+          <circle cx="31" cy="24" r="4.4" fill="#50F6FF"/>
+          <rect x="14" y="34" width="20" height="2.6" rx="1.3" fill="#FF4FD8"/>
+        </svg>
+      </span>
+      <span class="logo__text">
+        <span class="logo__name">NIBU</span>
+        <span class="logo__slogan">YOUR LIFE, ONE LITTLE CREATURE.</span>
+      </span>
+    </a>
+    <button class="iconbtn" id="btnSettings" type="button" data-nav="reglages" aria-label="Ouvrir les reglages">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+        <path fill="currentColor" d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm0 2a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
+        <path fill="currentColor" d="m19.4 13.5 1.7 1.3-1.9 3.3-2-.8a6.6 6.6 0 0 1-1.7 1l-.3 2.1h-3.8l-.3-2.1a6.6 6.6 0 0 1-1.7-1l-2 .8-1.9-3.3 1.7-1.3a6.9 6.9 0 0 1 0-2l-1.7-1.3 1.9-3.3 2 .8a6.6 6.6 0 0 1 1.7-1l.3-2.1h3.8l.3 2.1c.6.25 1.18.58 1.7 1l2-.8 1.9 3.3-1.7 1.3c.06.33.1.66.1 1s-.04.67-.1 1Z" opacity=".55"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- =====================================================
+       A. ACCUEIL — LE MONDE DE NIBU
+       ===================================================== -->
+  <section class="view" id="view-accueil" data-view="accueil" aria-labelledby="h-accueil">
+    <h1 class="sr-only" id="h-accueil">Accueil — le monde de NIBU</h1>
+
+    <div class="hero">
+      <div class="hero__stage">
+        <div class="hero__halo" aria-hidden="true"></div>
+        <div class="nibu-scene" id="nibuScene" data-mood="neutral">
+          <svg class="nibu-robot" viewBox="0 0 200 240" role="img" aria-labelledby="nibuTitle nibuDesc">
+            <title id="nibuTitle">NIBU, petit robot de compagnie</title>
+            <desc id="nibuDesc">Mini-robot futuriste en chrome et verre optique. Ses yeux lumineux et sa visiere changent selon son humeur.</desc>
+            <defs>
+              <linearGradient id="chrome" x1="0" y1="0" x2="0.8" y2="1">
+                <stop offset="0" stop-color="#F2F5FF"/>
+                <stop offset=".28" stop-color="#C5D0E2"/>
+                <stop offset=".5" stop-color="#8E9CB4"/>
+                <stop offset=".66" stop-color="#C5D0E2"/>
+                <stop offset="1" stop-color="#6B7793"/>
+              </linearGradient>
+              <linearGradient id="chromeSide" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#5C6780"/>
+                <stop offset=".5" stop-color="#C5D0E2"/>
+                <stop offset="1" stop-color="#3E4759"/>
+              </linearGradient>
+              <linearGradient id="glass" x1="0" y1="0" x2=".4" y2="1">
+                <stop offset="0" stop-color="#0A1020" stop-opacity=".96"/>
+                <stop offset=".55" stop-color="#121A33" stop-opacity=".9"/>
+                <stop offset="1" stop-color="#05070F" stop-opacity=".98"/>
+              </linearGradient>
+              <linearGradient id="visorSheen" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#50F6FF" stop-opacity=".55"/>
+                <stop offset=".5" stop-color="#9B7BFF" stop-opacity=".28"/>
+                <stop offset="1" stop-color="#FF4FD8" stop-opacity=".45"/>
+              </linearGradient>
+              <radialGradient id="eyeGlow" cx=".5" cy=".5" r=".5">
+                <stop offset="0" stop-color="#FFFFFF"/>
+                <stop offset=".45" stop-color="#50F6FF"/>
+                <stop offset="1" stop-color="#50F6FF" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="coreGlow" cx=".5" cy=".5" r=".5">
+                <stop offset="0" stop-color="#F2F5FF"/>
+                <stop offset=".4" stop-color="#50F6FF"/>
+                <stop offset="1" stop-color="#50F6FF" stop-opacity="0"/>
+              </radialGradient>
+              <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="3.2"/>
+              </filter>
+            </defs>
+
+            <g class="nibu-antenna">
+              <line x1="100" y1="34" x2="100" y2="16" stroke="#8E9CB4" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="100" cy="11" r="11" fill="#FF4FD8" opacity=".28" filter="url(#soft)"/>
+              <circle class="nibu-antenna-tip" cx="100" cy="11" r="6.5" fill="#FF4FD8"/>
+            </g>
+
+            <g class="nibu-head">
+              <rect x="22" y="66" width="14" height="34" rx="7" fill="url(#chromeSide)"/>
+              <rect x="164" y="66" width="14" height="34" rx="7" fill="url(#chromeSide)"/>
+              <rect x="34" y="30" width="132" height="104" rx="38" fill="url(#chrome)"/>
+              <rect x="34" y="30" width="132" height="104" rx="38" fill="none" stroke="#F2F5FF" stroke-opacity=".45" stroke-width="1.2"/>
+              <rect x="46" y="52" width="108" height="62" rx="27" fill="url(#glass)"/>
+              <rect x="46" y="52" width="108" height="62" rx="27" fill="url(#visorSheen)" opacity=".5"/>
+              <rect x="46" y="52" width="108" height="62" rx="27" fill="none" stroke="#50F6FF" stroke-opacity=".55" stroke-width="1.2"/>
+              <path d="M56 66c14-9 40-11 56-6" stroke="#F2F5FF" stroke-opacity=".5" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+              <g class="nibu-eyes">
+                <ellipse class="nibu-eye" cx="78" cy="83" rx="13" ry="13" fill="url(#eyeGlow)"/>
+                <ellipse class="nibu-eye" cx="122" cy="83" rx="13" ry="13" fill="url(#eyeGlow)"/>
+                <circle class="nibu-pupil" cx="78" cy="83" r="5.4" fill="#05070F"/>
+                <circle class="nibu-pupil" cx="122" cy="83" r="5.4" fill="#05070F"/>
+                <circle cx="81.4" cy="79.6" r="2" fill="#F2F5FF"/>
+                <circle cx="125.4" cy="79.6" r="2" fill="#F2F5FF"/>
+              </g>
+              <path class="nibu-brow nibu-brow--l" d="M66 61q11-6 22-3" stroke="#C5D0E2" stroke-width="2.6" fill="none" stroke-linecap="round" opacity="0"/>
+              <path class="nibu-brow nibu-brow--r" d="M112 58q11-3 22 3" stroke="#C5D0E2" stroke-width="2.6" fill="none" stroke-linecap="round" opacity="0"/>
+              <g class="nibu-mouth">
+                <path d="M88 103q12 7 24 0" stroke="#50F6FF" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+              </g>
+            </g>
+
+            <rect x="86" y="130" width="28" height="16" rx="7" fill="url(#chromeSide)"/>
+            <g class="nibu-body">
+              <rect x="48" y="168" width="12" height="30" rx="6" fill="url(#chromeSide)"/>
+              <rect x="140" y="168" width="12" height="30" rx="6" fill="url(#chromeSide)"/>
+              <path d="M52 168c0-16 12-26 28-26h40c16 0 28 10 28 26v26c0 14-10 22-24 22H76c-14 0-24-8-24-22z" fill="url(#chrome)"/>
+              <path d="M52 168c0-16 12-26 28-26h40c16 0 28 10 28 26v26c0 14-10 22-24 22H76c-14 0-24-8-24-22z" fill="none" stroke="#F2F5FF" stroke-opacity=".32" stroke-width="1.1"/>
+              <rect x="66" y="158" width="68" height="40" rx="14" fill="url(#glass)"/>
+              <rect x="66" y="158" width="68" height="40" rx="14" fill="none" stroke="#50F6FF" stroke-opacity=".45" stroke-width="1.1"/>
+              <circle class="nibu-core" cx="100" cy="178" r="14" fill="url(#coreGlow)"/>
+              <path d="M100 170v16M92 178h16" stroke="#F2F5FF" stroke-opacity=".8" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="60" cy="196" r="5" fill="#9CFFB0" opacity=".9"/>
+              <circle cx="140" cy="196" r="5" fill="#FF4FD8" opacity=".9"/>
+            </g>
+          </svg>
+          <div class="nibu-shadow" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <div class="hero__pitch">
+        <p class="hero__greeting" id="heroGreeting">Salut, pilote. On gere ca ?</p>
+        <p class="hero__sub" id="heroSub">Je surveille ton quotidien. Ajoute une capsule et je m occupe du reste.</p>
+        <div class="chips">
+          <span class="chip" id="moodChip" data-tone="cyan">HUMEUR · <b id="moodLabel">NEUTRE</b></span>
+          <span class="chip" data-tone="violet">ENERGIE · <b id="energyLabel">100 %</b></span>
+          <span class="chip" data-tone="green">NIVEAU · <b id="levelLabel">1</b> · <b id="xpLabel">0 XP</b></span>
+        </div>
+        <div class="energy" role="progressbar" id="energyBar" aria-label="Energie du compagnon" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
+          <span class="energy__fill" id="energyFill"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats" id="statsGrid">
+      <div class="stat" data-stat="budget">
+        <span class="stat__tag">BUDGET SEMAINE</span>
+        <strong class="stat__value" id="statBudget">—</strong>
+        <span class="stat__note" id="statBudgetNote">Budget non defini</span>
+      </div>
+      <div class="stat" data-stat="echeance">
+        <span class="stat__tag">PROCHAINE ECHEANCE</span>
+        <strong class="stat__value" id="statNext">—</strong>
+        <span class="stat__note" id="statNextNote">Aucune</span>
+      </div>
+      <div class="stat" data-stat="rdv">
+        <span class="stat__tag">RENDEZ-VOUS A VENIR</span>
+        <strong class="stat__value" id="statRdV">0</strong>
+        <span class="stat__note" id="statRdVNote">Agenda libre</span>
+      </div>
+      <div class="stat" data-stat="colis">
+        <span class="stat__tag">COMMANDES EN COURS</span>
+        <strong class="stat__value" id="statColis">0</strong>
+        <span class="stat__note" id="statColisNote">Rien en transit</span>
+      </div>
+    </div>
+
+    <section class="panel panel--mission" aria-labelledby="h-mission">
+      <header class="panel__head">
+        <h2 id="h-mission">MISSION DU JOUR</h2>
+        <span class="tag" id="missionState" data-state="todo">A FAIRE</span>
+      </header>
+      <p class="mission__text" id="missionText">—</p>
+      <p class="mission__hint" id="missionHint">—</p>
+      <button class="btn btn--ghost" type="button" id="missionGo">Aller a l action</button>
+    </section>
+
+    <section class="panel" aria-labelledby="h-active">
+      <header class="panel__head">
+        <h2 id="h-active">CAPSULES ACTIVES</h2>
+        <button class="btn btn--tiny" type="button" data-nav="capsules">Tout voir</button>
+      </header>
+      <div class="list" id="homeActive"></div>
+    </section>
+
+    <div class="split">
+      <section class="panel" aria-labelledby="h-rdvhome">
+        <header class="panel__head"><h2 id="h-rdvhome">RENDEZ-VOUS</h2></header>
+        <div class="list list--compact" id="homeRdV"></div>
+      </section>
+      <section class="panel" aria-labelledby="h-cmdhome">
+        <header class="panel__head"><h2 id="h-cmdhome">COMMANDES</h2></header>
+        <div class="list list--compact" id="homeCmd"></div>
+      </section>
+    </div>
+
+    <div class="cta-row">
+      <button class="btn btn--primary btn--xl" type="button" id="btnAddCapsule">+ Ajouter une capsule</button>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       B. BUDGET — LE CENTRE FINANCIER
+       ===================================================== -->
+  <section class="view" id="view-budget" data-view="budget" aria-labelledby="h-budget" hidden>
+    <h1 class="view__title" id="h-budget">CENTRE FINANCIER</h1>
+    <p class="view__lead">Suivi manuel du budget hebdomadaire en CHF. Aucune connexion bancaire : tu saisies, NIBU calcule.</p>
+
+    <section class="panel panel--budget" aria-labelledby="h-bstate">
+      <header class="panel__head">
+        <h2 id="h-bstate">BUDGET DE LA SEMAINE</h2>
+        <button class="btn btn--tiny" type="button" id="btnEditBudget">Modifier</button>
+      </header>
+      <div class="budget__numbers">
+        <div><span class="stat__tag">BUDGET</span><strong id="budgetTotal">—</strong></div>
+        <div><span class="stat__tag">DEPENSE</span><strong id="budgetSpent">—</strong></div>
+        <div><span class="stat__tag">RESTANT</span><strong id="budgetLeft">—</strong></div>
+      </div>
+      <div class="bar" role="progressbar" id="budgetBar" aria-label="Consommation du budget" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span class="bar__fill" id="budgetFill"></span>
+      </div>
+      <p class="budget__pct" id="budgetPct">0 % du budget consomme</p>
+      <p class="nibu-say" id="budgetSay">—</p>
+    </section>
+
+    <section class="panel" aria-labelledby="h-nexp">
+      <header class="panel__head"><h2 id="h-nexp">AJOUTER UNE DEPENSE</h2></header>
+      <form id="expenseForm" class="form" novalidate>
+        <div class="field">
+          <label for="expAmount">Montant (CHF) *</label>
+          <input id="expAmount" name="amount" type="text" inputmode="decimal" autocomplete="off" placeholder="22.00" required>
+          <p class="err" id="expAmountErr" hidden></p>
+        </div>
+        <div class="field">
+          <label for="expCat">Categorie *</label>
+          <select id="expCat" name="category">
+            <option value="Alimentation">Alimentation</option>
+            <option value="Transport">Transport</option>
+            <option value="Logement">Logement</option>
+            <option value="Sante">Sante</option>
+            <option value="Loisirs">Loisirs</option>
+            <option value="Abonnements">Abonnements</option>
+            <option value="Achats">Achats</option>
+            <option value="Autre">Autre</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="expLabel">Libelle</label>
+          <input id="expLabel" name="label" type="text" maxlength="60" autocomplete="off" placeholder="Courses Coop">
+        </div>
+        <div class="field">
+          <label for="expDate">Date</label>
+          <input id="expDate" name="date" type="date">
+          <p class="hint">Laisse vide pour utiliser la date du jour.</p>
+        </div>
+        <div class="form__actions">
+          <button class="btn btn--primary" type="submit">Enregistrer la depense</button>
+          <button class="btn btn--ghost" type="reset">Annuler</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel" aria-labelledby="h-hist">
+      <header class="panel__head">
+        <h2 id="h-hist">HISTORIQUE DE LA SEMAINE</h2>
+        <button class="btn btn--tiny btn--danger" type="button" id="btnResetExpenses">Reinitialiser</button>
+      </header>
+      <div class="list" id="expenseList"></div>
+    </section>
+  </section>
+
+  <!-- =====================================================
+       C. CAPSULES — LA MEMOIRE DU QUOTIDIEN
+       ===================================================== -->
+  <section class="view" id="view-capsules" data-view="capsules" aria-labelledby="h-caps" hidden>
+    <h1 class="view__title" id="h-caps">MEMOIRE DU QUOTIDIEN</h1>
+    <p class="view__lead">Chaque capsule est une information structuree, retrouvable en un coup d oeil.</p>
+
+    <div class="toolbar">
+      <div class="field">
+        <label for="filterType">Type</label>
+        <select id="filterType">
+          <option value="all">Tous</option>
+          <option value="echeance">Echeances</option>
+          <option value="rendezvous">Rendez-vous</option>
+          <option value="commande">Commandes et colis</option>
+          <option value="rappel">Rappels et notes</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="filterStatus">Statut</label>
+        <select id="filterStatus">
+          <option value="all">Tous</option>
+          <option value="active">Actives</option>
+          <option value="done">Terminees</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="sortBy">Tri</label>
+        <select id="sortBy">
+          <option value="date-asc">Date, proche d abord</option>
+          <option value="date-desc">Date, plus lointaine d abord</option>
+          <option value="created-desc">Creation recente</option>
+          <option value="created-asc">Creation ancienne</option>
+          <option value="title">Titre A-Z</option>
+        </select>
+      </div>
+      <button class="btn btn--primary" type="button" id="btnAddCapsule2">+ Capsule</button>
+    </div>
+
+    <p class="toolbar__count" id="capsuleCount">0 capsule</p>
+
+    <div class="list" id="capsuleList"></div>
+
+    <section class="panel" id="doneWrap" aria-labelledby="h-done" hidden>
+      <header class="panel__head">
+        <h2 id="h-done">CAPSULES TERMINEES</h2>
+        <button class="btn btn--tiny" type="button" id="btnToggleDone">Masquer</button>
+      </header>
+      <div class="list list--muted" id="capsuleListDone"></div>
+    </section>
+  </section>
+
+  <!-- =====================================================
+       D. REGLAGES — LE CONTROLEUR DE NIBU
+       ===================================================== -->
+  <section class="view" id="view-reglages" data-view="reglages" aria-labelledby="h-set" hidden>
+    <h1 class="view__title" id="h-set">CONTROLEUR DE NIBU</h1>
+
+    <section class="panel" aria-labelledby="h-set-user">
+      <header class="panel__head"><h2 id="h-set-user">IDENTITE ET BUDGET</h2></header>
+      <form id="settingsForm" class="form" novalidate>
+        <div class="field">
+          <label for="setName">Nom utilise par NIBU pour t appeler</label>
+          <input id="setName" type="text" maxlength="24" autocomplete="off" placeholder="pilote">
+          <p class="hint">Utilise le nom que tu veux. NIBU ne l envoie nulle part.</p>
+        </div>
+        <div class="field">
+          <label for="setBudget">Budget hebdomadaire (CHF)</label>
+          <input id="setBudget" type="text" inputmode="decimal" autocomplete="off" placeholder="90.00">
+          <p class="err" id="setBudgetErr" hidden></p>
+        </div>
+        <div class="field">
+          <label class="check">
+            <input id="setReduceMotion" type="checkbox">
+            <span>Forcer la reduction des animations (aide aussi les appareils lents)</span>
+          </label>
+          <p class="hint">NIBU respecte deja automatiquement le reglage systeme « Reduire les animations ».</p>
+        </div>
+        <div class="form__actions">
+          <button class="btn btn--primary" type="submit">Enregistrer</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel" aria-labelledby="h-set-data">
+      <header class="panel__head"><h2 id="h-set-data">DONNEES</h2></header>
+      <p class="prose">Tes capsules, depenses et reglages vivent dans le <b>localStorage</b> de ce navigateur, sur cet appareil uniquement.</p>
+      <div class="form__actions form__actions--wrap">
+        <button class="btn btn--primary" type="button" id="btnExport">Exporter en JSON</button>
+        <label class="btn btn--ghost" for="importFile">Importer un JSON</label>
+        <input id="importFile" type="file" accept="application/json,.json" hidden>
+        <button class="btn btn--danger" type="button" id="btnWipe">Effacer toutes les donnees locales</button>
+      </div>
+      <p class="hint" id="storageInfo">—</p>
+    </section>
+
+    <section class="panel" aria-labelledby="h-set-priv">
+      <header class="panel__head"><h2 id="h-set-priv">CONFIDENTIALITE ET LIMITES</h2></header>
+      <ul class="bullets">
+        <li>Aucun compte utilisateur, aucun serveur, aucune requete reseau : tout est calcule dans ton navigateur.</li>
+        <li>Aucun traceur publicitaire, aucune analyse d usage, aucun cookie tiers.</li>
+        <li>NIBU ne te demandera <b>jamais</b> de mot de passe bancaire, de numero de carte ni d identifiant de compte.</li>
+        <li>Les donnees locales <b>ne sont pas chiffrees</b> et <b>ne se synchronisent pas</b> entre appareils. Le localStorage n est pas un coffre-fort.</li>
+        <li>Si tu effaces les donnees de ton navigateur sans avoir exporte, tes capsules seront perdues.</li>
+        <li>NIBU ne lit pas tes comptes bancaires : les depenses de la V1 sont saisies a la main.</li>
+        <li>Aucune notification systeme n est simulee dans la V1 : les echeances sont visibles dans l application.</li>
+      </ul>
+    </section>
+
+    <section class="panel" aria-labelledby="h-set-scope">
+      <header class="panel__head"><h2 id="h-set-scope">CE QUE LA V1 FAIT — ET CE QU ELLE NE FAIT PAS</h2></header>
+      <div class="scope">
+        <div>
+          <h3 class="scope__h scope__h--yes">Fonctionne dans cette webapp</h3>
+          <ul class="bullets">
+            <li>Afficher NIBU et son humeur dans la page.</li>
+            <li>Enregistrer et gerer les capsules.</li>
+            <li>Calculer le budget hebdomadaire en CHF.</li>
+            <li>Suivre rendez-vous et commandes manuellement.</li>
+            <li>Conserver les donnees dans le navigateur.</li>
+            <li>Exporter et effacer les donnees.</li>
+            <li>Interface responsive, installable comme raccourci web si le navigateur le permet.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="scope__h scope__h--no">Necessite une app iOS native</h3>
+          <ul class="bullets">
+            <li>Veritable widget installe sur l ecran d accueil iOS.</li>
+            <li>Partage fiable des donnees entre l application et le widget.</li>
+            <li>Notifications locales selon les autorisations iOS.</li>
+            <li>Integration native au calendrier Apple.</li>
+            <li>Acces a des donnees d autres applications.</li>
+            <li>Synchronisation securisee entre plusieurs appareils.</li>
+            <li>Actualisation permanente en temps reel du widget.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="hint">Pour la future version native : SwiftUI avec WidgetKit. Le widget pourra afficher NIBU, la prochaine echeance, le budget restant et une commande en cours ; les interactions complexes ouvriront l application principale. Le widget respectera les mecanismes de rafraichissement d iOS.</p>
+    </section>
+  </section>
+</main>
+
+<!-- ===== Navigation persistante ===== -->
+<nav class="tabbar" aria-label="Navigation principale">
+  <button class="tab" type="button" data-nav="accueil" aria-current="page">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 3.2 21 11h-2.6v8.4c0 .9-.7 1.6-1.6 1.6h-3.5v-5.6h-2.6V21H7.2c-.9 0-1.6-.7-1.6-1.6V11H3z"/></svg>
+    <span>Accueil</span>
+  </button>
+  <button class="tab" type="button" data-nav="budget">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M4 6.5C4 5.1 5.1 4 6.5 4h9C16.9 4 18 5.1 18 6.5V8h1.5A1.5 1.5 0 0 1 21 9.5v9A1.5 1.5 0 0 1 19.5 20h-13A1.5 1.5 0 0 1 5 18.5v-12zm2 0v2h10v-2a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zM18 12.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>
+    <span>Budget</span>
+  </button>
+  <button class="tab" type="button" data-nav="capsules">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M7 3h10a2 2 0 0 1 2 2v16l-7-3.5L5 21V5a2 2 0 0 1 2-2z"/></svg>
+    <span>Capsules</span>
+  </button>
+  <button class="tab" type="button" data-nav="reglages">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm0 2a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm7.4 3 1.7 1.3-1.9 3.3-2-.8a6.6 6.6 0 0 1-1.7 1l-.3 2.1h-3.8l-.3-2.1a6.6 6.6 0 0 1-1.7-1l-2 .8-1.9-3.3 1.7-1.3a6.9 6.9 0 0 1 0-2l-1.7-1.3 1.9-3.3 2 .8a6.6 6.6 0 0 1 1.7-1l.3-2.1h3.8l.3 2.1c.6.25 1.18.58 1.7 1l2-.8 1.9 3.3-1.7 1.3c.06.33.1.66.1 1s-.04.67-.1 1Z"/></svg>
+    <span>Reglages</span>
+  </button>
+</nav>
+
+<!-- ===== Formulaire capsule ===== -->
+<div class="modal" id="capsuleModal" hidden>
+  <div class="modal__backdrop" data-close="1"></div>
+  <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="capModalTitle">
+    <header class="modal__head">
+      <h2 id="capModalTitle">Nouvelle capsule</h2>
+      <button class="iconbtn" type="button" data-close="1" aria-label="Fermer">✕</button>
+    </header>
+    <form id="capsuleForm" class="form" novalidate>
+      <div class="field">
+        <label for="capType">Type *</label>
+        <select id="capType">
+          <option value="echeance">Echeance</option>
+          <option value="rendezvous">Rendez-vous</option>
+          <option value="commande">Commande et colis</option>
+          <option value="rappel">Rappel et note</option>
+        </select>
+      </div>
+      <div class="field" id="wrapEchCat">
+        <label for="capEchCat">Nature de l echeance</label>
+        <select id="capEchCat">
+          <option>Facture a payer</option>
+          <option>Document a envoyer</option>
+          <option>Demarche administrative</option>
+          <option>Date limite</option>
+          <option>Renouvellement</option>
+          <option>Tache importante</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="capTitle" id="capTitleLabel">Titre *</label>
+        <input id="capTitle" type="text" maxlength="70" autocomplete="off" placeholder="Facture d electricite">
+        <p class="err" id="capTitleErr" hidden></p>
+      </div>
+      <div class="field" id="wrapDate">
+        <label for="capDate" id="capDateLabel">Date limite</label>
+        <input id="capDate" type="date">
+      </div>
+      <div class="field" id="wrapTime">
+        <label for="capTime">Heure</label>
+        <input id="capTime" type="time">
+      </div>
+      <div class="field" id="wrapAmount">
+        <label for="capAmount">Montant (CHF, facultatif)</label>
+        <input id="capAmount" type="text" inputmode="decimal" autocomplete="off" placeholder="120.00">
+        <p class="err" id="capAmountErr" hidden></p>
+      </div>
+      <div class="field" id="wrapShop" hidden>
+        <label for="capShop">Boutique (facultatif)</label>
+        <input id="capShop" type="text" maxlength="40" autocomplete="off" placeholder="Galaxus">
+      </div>
+      <div class="field" id="wrapCmdStatus" hidden>
+        <label for="capCmdStatus">Statut de la commande</label>
+        <select id="capCmdStatus">
+          <option value="commandé">Commandé</option>
+          <option value="expédié">Expédié</option>
+          <option value="en livraison">En livraison</option>
+          <option value="livré">Livré</option>
+          <option value="annulé">Annulé</option>
+        </select>
+      </div>
+      <div class="field" id="wrapTracking" hidden>
+        <label for="capTracking">Numero de suivi (facultatif)</label>
+        <input id="capTracking" type="text" maxlength="40" autocomplete="off" placeholder="CH123456789">
+      </div>
+      <div class="field" id="wrapStatus">
+        <label for="capStatus">Statut de la capsule</label>
+        <select id="capStatus">
+          <option value="active">Active</option>
+          <option value="done">Terminee</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="capDetail" id="capDetailLabel">Detail (facultatif)</label>
+        <textarea id="capDetail" rows="3" maxlength="280" placeholder="Lieu, information utile, precision"></textarea>
+      </div>
+      <div class="form__actions">
+        <button class="btn btn--primary" type="submit" id="capSubmit">Creer la capsule</button>
+        <button class="btn btn--ghost" type="button" data-close="1">Annuler</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== Modale de confirmation ===== -->
+<div class="modal" id="confirmModal" hidden>
+  <div class="modal__backdrop" data-close="1"></div>
+  <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <header class="modal__head"><h2 id="confirmTitle">Confirmer</h2></header>
+    <p class="prose" id="confirmText">—</p>
+    <div class="form__actions">
+      <button class="btn btn--danger" type="button" id="confirmOk">Confirmer</button>
+      <button class="btn btn--ghost" type="button" data-close="1">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Modale de saisie ===== -->
+<div class="modal" id="promptModal" hidden>
+  <div class="modal__backdrop" data-close="1"></div>
+  <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="promptTitle">
+    <header class="modal__head"><h2 id="promptTitle">Modifier</h2></header>
+    <form id="promptForm" class="form" novalidate>
+      <div class="field">
+        <label for="promptInput" id="promptLabel">Valeur</label>
+        <input id="promptInput" type="text" inputmode="decimal" autocomplete="off">
+        <p class="err" id="promptErr" hidden></p>
+      </div>
+      <div class="form__actions">
+        <button class="btn btn--primary" type="submit">Valider</button>
+        <button class="btn btn--ghost" type="button" data-close="1">Annuler</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
