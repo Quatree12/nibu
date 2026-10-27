@@ -161,9 +161,19 @@ a:hover { text-decoration: underline; }
 }
 .hero__stage { position: relative; display: grid; place-items: center; z-index: 1; }
 .hero__halo {
-  position: absolute; width: 240px; height: 240px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(80,246,255,.22), rgba(155,123,255,.1) 45%, transparent 70%);
-  filter: blur(6px);
+  position: absolute; width: 250px; height: 250px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(80,246,255,.26), rgba(155,123,255,.12) 45%, transparent 70%);
+  filter: blur(8px); transition: background .55s ease;
+}
+.hero:has(.nibu-scene[data-mood="alert"]) .hero__halo {
+  background: radial-gradient(circle, rgba(255,107,126,.36), rgba(255,79,216,.14) 45%, transparent 70%);
+}
+.hero:has(.nibu-scene[data-mood="happy"]) .hero__halo,
+.hero:has(.nibu-scene[data-mood="celebrate"]) .hero__halo {
+  background: radial-gradient(circle, rgba(156,255,176,.34), rgba(80,246,255,.14) 45%, transparent 70%);
+}
+.hero:has(.nibu-scene[data-mood="focused"]) .hero__halo {
+  background: radial-gradient(circle, rgba(155,123,255,.32), rgba(80,246,255,.1) 45%, transparent 70%);
 }
 .nibu-scene { position: relative; width: 168px; }
 .nibu-robot { display: block; width: 100%; height: auto; overflow: visible; animation: float 5.4s ease-in-out infinite; }
@@ -178,54 +188,128 @@ a:hover { text-decoration: underline; }
 
 .nibu-eye { animation: eyeGlow 3.4s ease-in-out infinite; }
 @keyframes eyeGlow { 0%,100% { opacity: 1 } 50% { opacity: .72 } }
-.nibu-eyes { animation: blink 6.2s infinite; transform-origin: 100px 83px; }
+.nibu-eyes { animation: blink 6.2s infinite; transform-origin: 100px 81px; }
 @keyframes blink { 0%,92%,100% { transform: scaleY(1) } 95%,96.5% { transform: scaleY(.1) } }
-.nibu-antenna-tip { animation: tip 2.2s ease-in-out infinite; filter: drop-shadow(0 0 8px var(--pink)); }
+.nibu-antenna-tip { animation: tip 2.2s ease-in-out infinite; }
 @keyframes tip { 0%,100% { opacity: 1 } 50% { opacity: .5 } }
 .nibu-core { animation: core 2.8s ease-in-out infinite; }
 @keyframes core { 0%,100% { opacity: .95 } 50% { opacity: .5 } }
+.nibu-head-glow, .nibu-body-glow, .nibu-antenna-halo { animation: breathe 4.6s ease-in-out infinite; }
+@keyframes breathe { 0%,100% { opacity: var(--breathe-high, .32) } 50% { opacity: var(--breathe-low, .12) } }
 
+/* ==========================================================================
+   HUMEURS DE NIBU — chaque etat change la COULEUR et la FORME.
+   Le visor, le lisere, les yeux, les joues, la bouche, les sourcils,
+   l'antenne et le halo du corps basculent ensemble : le contraste reste
+   lisible a petite taille sur iPhone.
+   ========================================================================== */
+
+/* --- Etat par defaut : neutre --- */
+.nibu-scene .nibu-visor-glow  { fill: none; stroke: var(--cyan); stroke-width: 4; opacity: .55;
+                                transition: opacity .45s ease, stroke .45s ease; }
+.nibu-scene .nibu-antenna-tip { fill: var(--cyan); transition: fill .45s ease; }
+.nibu-scene .nibu-antenna-halo { fill: var(--cyan); opacity: .35; --breathe-high: .4; --breathe-low: .15;
+                                transition: fill .45s ease, opacity .45s ease; }
+.nibu-scene .nibu-mouth-line  { stroke: var(--cyan); transition: stroke .45s ease, transform .4s ease, stroke-width .4s ease; transform-origin: 100px 103px; }
+.nibu-scene .nibu-eye-ring    { stroke: #FFFFFF; stroke-opacity: .65; transition: stroke .45s ease, stroke-opacity .45s ease; }
+.nibu-scene .nibu-eye-halo    { fill: var(--cyan); opacity: .45; transition: fill .45s ease, opacity .45s ease; }
+.nibu-scene .nibu-pupil       { fill: #04060C; transition: opacity .4s ease, transform .4s ease; transform-origin: center; transform-box: fill-box; }
+.nibu-scene .nibu-brow        { stroke: var(--chrome); opacity: .3; transition: opacity .4s ease, stroke .45s ease, transform .4s ease; transform-origin: center; transform-box: fill-box; }
+.nibu-scene .nibu-cheek       { fill: var(--cyan); opacity: 0; transition: opacity .45s ease, fill .45s ease; }
+.nibu-scene .nibu-head-glow   { fill: var(--cyan); opacity: .2; --breathe-high: .26; --breathe-low: .1; transition: fill .45s ease; }
+.nibu-scene .nibu-body-glow   { fill: var(--cyan); opacity: .16; --breathe-high: .22; --breathe-low: .08; transition: fill .45s ease; }
+.nibu-scene .nibu-core-glow-ring { fill: none; stroke: var(--cyan); stroke-width: 3; opacity: .5;
+                                transition: stroke .45s ease, opacity .45s ease, stroke-width .4s ease; }
+
+/* --- SATISFAITE / EN FETE : vert signal, grand sourire, joues allumees --- */
+.nibu-scene[data-mood="happy"] .nibu-visor-glow,
+.nibu-scene[data-mood="celebrate"] .nibu-visor-glow { stroke: var(--signal); opacity: 1; }
 .nibu-scene[data-mood="happy"] .nibu-antenna-tip,
 .nibu-scene[data-mood="celebrate"] .nibu-antenna-tip { fill: var(--signal); }
-.nibu-scene[data-mood="happy"] .nibu-mouth path { stroke: var(--signal); transform: translateY(2px); }
-.nibu-scene[data-mood="alert"] .nibu-mouth path { stroke: var(--danger); transform: translateY(3px) scaleY(.2); }
-.nibu-scene[data-mood="alert"] .nibu-antenna-tip { fill: var(--danger); animation-duration: .7s; }
-.nibu-scene[data-mood="alert"] .nibu-brow { opacity: 1; }
-.nibu-scene[data-mood="alert"] .nibu-robot { animation-duration: 1.5s; }
-.nibu-scene[data-mood="sleepy"] .nibu-pupil { opacity: .22; }
-.nibu-scene[data-mood="sleepy"] .nibu-mouth path { stroke: var(--chrome); transform: translateY(3px) scaleY(.3); }
-.nibu-scene[data-mood="sleepy"] .nibu-robot { animation-duration: 8.4s; }
-.nibu-scene[data-mood="focused"] .nibu-brow { opacity: 1; }
-.nibu-scene[data-mood="focused"] .nibu-mouth path { stroke: var(--violet); transform: translateY(3px) scaleY(.2); }
+.nibu-scene[data-mood="happy"] .nibu-antenna-halo,
+.nibu-scene[data-mood="celebrate"] .nibu-antenna-halo { fill: var(--signal); opacity: .8; --breathe-high: .85; --breathe-low: .45; }
+.nibu-scene[data-mood="happy"] .nibu-mouth-line,
+.nibu-scene[data-mood="celebrate"] .nibu-mouth-line { stroke: var(--signal); stroke-width: 5; transform: translateY(2px) scaleY(1.35); }
+.nibu-scene[data-mood="happy"] .nibu-cheek,
+.nibu-scene[data-mood="celebrate"] .nibu-cheek { fill: var(--signal); opacity: .9; }
+.nibu-scene[data-mood="happy"] .nibu-head-glow,
+.nibu-scene[data-mood="celebrate"] .nibu-head-glow { fill: var(--signal); opacity: .42; --breathe-high: .5; --breathe-low: .24; }
+.nibu-scene[data-mood="happy"] .nibu-body-glow,
+.nibu-scene[data-mood="celebrate"] .nibu-body-glow { fill: var(--signal); opacity: .3; --breathe-high: .38; --breathe-low: .16; }
+.nibu-scene[data-mood="happy"] .nibu-core-glow-ring,
+.nibu-scene[data-mood="celebrate"] .nibu-core-glow-ring { stroke: var(--signal); opacity: .9; }
+.nibu-scene[data-mood="happy"] .nibu-eye-halo,
+.nibu-scene[data-mood="celebrate"] .nibu-eye-halo { fill: #B8FFC9; opacity: .8; }
+.nibu-scene[data-mood="happy"] .nibu-eye-ring,
+.nibu-scene[data-mood="celebrate"] .nibu-eye-ring { stroke: var(--signal); stroke-opacity: 1; }
+.nibu-scene[data-mood="happy"] .nibu-brow,
+.nibu-scene[data-mood="celebrate"] .nibu-brow { opacity: 0; }
 .nibu-scene[data-mood="celebrate"] .nibu-robot { animation: celebrate .9s cubic-bezier(.3,1.6,.4,1) 3; }
 @keyframes celebrate { 0%,100% { transform: translateY(0) rotate(0) } 35% { transform: translateY(-16px) rotate(-4deg) } 70% { transform: translateY(-6px) rotate(4deg) } }
 
-/* ------- Etats lies aux donnees reelles ------- */
-.nibu-visor-glow {
-  fill: none; stroke: var(--cyan); stroke-width: 2.4; opacity: 0;
-  transition: opacity .5s ease, stroke .5s ease;
-}
-.nibu-scene[data-energy="high"] .nibu-core { animation-duration: 1.5s; }
-.nibu-scene[data-energy="high"] .nibu-eye  { animation-duration: 1.9s; }
-.nibu-scene[data-energy="low"] .nibu-core  { animation-duration: 5s; opacity: .6; }
+/* --- INQUIETE : rouge, sourcils fronces, pupilles retrecies, tete qui oscille --- */
+.nibu-scene[data-mood="alert"] .nibu-visor-glow { stroke: var(--danger); opacity: 1; stroke-width: 5.5; }
+.nibu-scene[data-mood="alert"] .nibu-antenna-tip { fill: var(--danger); animation-duration: .55s; }
+.nibu-scene[data-mood="alert"] .nibu-antenna-halo { fill: var(--danger); opacity: .9; --breathe-high: .95; --breathe-low: .5; }
+.nibu-scene[data-mood="alert"] .nibu-mouth-line { stroke: var(--danger); stroke-width: 3.6; transform: translateY(5px) scaleY(.16); }
+.nibu-scene[data-mood="alert"] .nibu-cheek { fill: var(--danger); opacity: .55; }
+.nibu-scene[data-mood="alert"] .nibu-head-glow { fill: var(--danger); opacity: .5; --breathe-high: .6; --breathe-low: .3; }
+.nibu-scene[data-mood="alert"] .nibu-body-glow { fill: var(--danger); opacity: .34; --breathe-high: .42; --breathe-low: .18; }
+.nibu-scene[data-mood="alert"] .nibu-core-glow-ring { stroke: var(--danger); opacity: .95; stroke-width: 4; }
+.nibu-scene[data-mood="alert"] .nibu-eye-halo { fill: var(--danger); opacity: .6; }
+.nibu-scene[data-mood="alert"] .nibu-eye-ring { stroke: var(--danger); stroke-opacity: 1; }
+.nibu-scene[data-mood="alert"] .nibu-pupil { transform: scale(.6); }
+.nibu-scene[data-mood="alert"] .nibu-brow { opacity: 1; stroke: var(--danger); }
+.nibu-scene[data-mood="alert"] .nibu-brow--l { transform: translateY(5px) rotate(16deg); }
+.nibu-scene[data-mood="alert"] .nibu-brow--r { transform: translateY(5px) rotate(-16deg); }
+.nibu-scene[data-mood="alert"] .nibu-head { animation: worry 1.4s ease-in-out infinite; transform-origin: 100px 82px; }
+@keyframes worry { 0%,100% { transform: rotate(0) } 30% { transform: rotate(-2.5deg) } 70% { transform: rotate(2.5deg) } }
+.nibu-scene[data-mood="alert"] .nibu-robot { animation-duration: 1.3s; }
+
+/* --- CONCENTREE : violet, sourcils bas, bouche plate --- */
+.nibu-scene[data-mood="focused"] .nibu-visor-glow { stroke: var(--violet); opacity: .95; }
+.nibu-scene[data-mood="focused"] .nibu-antenna-tip { fill: var(--violet); }
+.nibu-scene[data-mood="focused"] .nibu-antenna-halo { fill: var(--violet); opacity: .65; --breathe-high: .7; --breathe-low: .3; }
+.nibu-scene[data-mood="focused"] .nibu-mouth-line { stroke: var(--violet); stroke-width: 3.2; transform: translateY(5px) scaleY(.14); }
+.nibu-scene[data-mood="focused"] .nibu-cheek { fill: var(--violet); opacity: .3; }
+.nibu-scene[data-mood="focused"] .nibu-head-glow { fill: var(--violet); opacity: .38; --breathe-high: .44; --breathe-low: .2; }
+.nibu-scene[data-mood="focused"] .nibu-body-glow { fill: var(--violet); opacity: .26; --breathe-high: .32; --breathe-low: .12; }
+.nibu-scene[data-mood="focused"] .nibu-core-glow-ring { stroke: var(--violet); opacity: .85; }
+.nibu-scene[data-mood="focused"] .nibu-eye-halo { fill: #C7B4FF; opacity: .65; }
+.nibu-scene[data-mood="focused"] .nibu-eye-ring { stroke: var(--violet); stroke-opacity: 1; }
+.nibu-scene[data-mood="focused"] .nibu-brow { opacity: 1; stroke: var(--violet); }
+.nibu-scene[data-mood="focused"] .nibu-brow--l { transform: translateY(7px); }
+.nibu-scene[data-mood="focused"] .nibu-brow--r { transform: translateY(7px); }
+
+/* --- ENDORMIE : tout s'eteint, antenne tombante, pupilles effacees --- */
+.nibu-scene[data-mood="sleepy"] .nibu-visor-glow { stroke: #2E3F5C; opacity: .55; stroke-width: 3; }
+.nibu-scene[data-mood="sleepy"] .nibu-antenna-tip { fill: #43557A; animation: none; }
+.nibu-scene[data-mood="sleepy"] .nibu-antenna-halo { fill: #2E3F5C; opacity: .2; --breathe-high: .22; --breathe-low: .08; }
+.nibu-scene[data-mood="sleepy"] .nibu-mouth-line { stroke: #54668A; stroke-width: 3; transform: translateY(6px) scaleY(.28); }
+.nibu-scene[data-mood="sleepy"] .nibu-cheek { opacity: 0; }
+.nibu-scene[data-mood="sleepy"] .nibu-head-glow { fill: #2E3F5C; opacity: .12; --breathe-high: .14; --breathe-low: .05; }
+.nibu-scene[data-mood="sleepy"] .nibu-body-glow { fill: #2E3F5C; opacity: .1; --breathe-high: .12; --breathe-low: .04; }
+.nibu-scene[data-mood="sleepy"] .nibu-core-glow-ring { stroke: #43557A; opacity: .35; }
+.nibu-scene[data-mood="sleepy"] .nibu-eye-halo { opacity: .1; }
+.nibu-scene[data-mood="sleepy"] .nibu-eye { opacity: .45; }
+.nibu-scene[data-mood="sleepy"] .nibu-pupil { opacity: .12; }
+.nibu-scene[data-mood="sleepy"] .nibu-brow { opacity: 0; }
+.nibu-scene[data-mood="sleepy"] .nibu-robot { animation-duration: 8.4s; }
+
+/* ------- Energie : rythme cardiaque et inclinaison de l'antenne ------- */
+.nibu-scene[data-energy="high"] .nibu-core { animation-duration: 1.4s; }
+.nibu-scene[data-energy="high"] .nibu-eye  { animation-duration: 1.8s; }
+.nibu-scene[data-energy="low"] .nibu-core  { animation-duration: 5s; opacity: .55; }
 .nibu-scene[data-energy="low"] .nibu-eye   { animation-duration: 6s; }
 .nibu-scene[data-energy="low"] .nibu-robot { animation-duration: 7.2s; }
 
-/* L'antenne s'incline selon l'energie et l'humeur */
 .nibu-antenna { transform-origin: 100px 34px; transition: transform .7s cubic-bezier(.22,.9,.3,1); }
-.nibu-scene[data-energy="low"] .nibu-antenna { transform: rotate(14deg); }
-.nibu-scene[data-mood="sleepy"] .nibu-antenna { transform: rotate(21deg); }
-.nibu-scene[data-mood="celebrate"] .nibu-antenna { transform: rotate(-12deg); }
+.nibu-scene[data-energy="low"] .nibu-antenna { transform: rotate(15deg); }
+.nibu-scene[data-mood="sleepy"] .nibu-antenna { transform: rotate(23deg); }
+.nibu-scene[data-mood="celebrate"] .nibu-antenna { transform: rotate(-13deg); }
+.nibu-scene[data-mood="alert"] .nibu-antenna { transform: rotate(-8deg); }
 
-/* Lisere du visor : renforce l'humeur sans dependre de la seule couleur,
-   les libelles textuels (humeur, badges) restent toujours affiches. */
-.nibu-scene[data-mood="alert"] .nibu-visor-glow    { opacity: 1; stroke: var(--danger); }
-.nibu-scene[data-mood="happy"] .nibu-visor-glow,
-.nibu-scene[data-mood="celebrate"] .nibu-visor-glow { opacity: .75; stroke: var(--signal); }
-.nibu-scene[data-mood="focused"] .nibu-visor-glow   { opacity: .55; stroke: var(--violet); }
-.nibu-scene[data-mood="sleepy"] .nibu-visor-glow    { opacity: .18; }
-.nibu-scene[data-mood="alert"] .nibu-head rect[fill="url(#visorSheen)"] { opacity: .2; }
-
+/* ------- Retours ponctuels apres une action ------- */
 .nibu-scene[data-reaction="spend"] .nibu-robot { animation: nudge .5s ease-out 2; }
 @keyframes nudge { 0%,100% { transform: translateY(0) scale(1) } 50% { transform: translateY(-6px) scale(1.03) } }
 .nibu-scene[data-reaction="done"] .nibu-robot,
@@ -239,7 +323,11 @@ a:hover { text-decoration: underline; }
   font-family: var(--font-title); font-weight: 700;
   font-size: 18px; line-height: 1.35; margin: 0 0 6px;
   color: var(--white); text-shadow: 0 0 24px rgba(80,246,255,.35);
+  transition: text-shadow .5s ease;
 }
+.hero:has(.nibu-scene[data-mood="alert"]) .hero__greeting { text-shadow: 0 0 26px rgba(255,107,126,.5); }
+.hero:has(.nibu-scene[data-mood="happy"]) .hero__greeting,
+.hero:has(.nibu-scene[data-mood="celebrate"]) .hero__greeting { text-shadow: 0 0 26px rgba(156,255,176,.5); }
 .hero__sub { margin: 0 0 12px; font-size: 13px; line-height: 1.55; color: var(--txt-dim); }
 
 .chips { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 10px; }
@@ -247,12 +335,13 @@ a:hover { text-decoration: underline; }
   font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .1em;
   padding: 5px 9px; border-radius: 999px; color: var(--chrome);
   background: rgba(197,208,226,.06); border: 1px solid var(--line); white-space: nowrap;
+  transition: border-color .45s ease, color .45s ease;
 }
 .chip b { color: var(--white); font-weight: 600; }
 .chip[data-tone="cyan"]   { border-color: rgba(80,246,255,.35); }
 .chip[data-tone="violet"] { border-color: rgba(155,123,255,.35); }
 .chip[data-tone="green"]  { border-color: rgba(156,255,176,.35); }
-.chip[data-tone="danger"] { border-color: rgba(255,107,126,.45); color: #FFB9C2; }
+.chip[data-tone="danger"] { border-color: rgba(255,107,126,.55); color: #FFB9C2; background: rgba(255,107,126,.1); }
 
 .energy { height: 7px; border-radius: 999px; overflow: hidden; background: rgba(197,208,226,.12); border: 1px solid var(--line); }
 .energy__fill {
@@ -261,7 +350,7 @@ a:hover { text-decoration: underline; }
   box-shadow: 0 0 14px rgba(80,246,255,.55);
   transition: width .6s cubic-bezier(.22,.9,.3,1), background .4s ease;
 }
-.energy__fill.is-low { background: linear-gradient(90deg, var(--warn), var(--pink)); }
+.energy__fill.is-low { background: linear-gradient(90deg, var(--warn), var(--danger)); }
 .energy__fill.is-high { background: linear-gradient(90deg, var(--signal), var(--cyan) 60%, var(--violet)); }
 
 /* ----------------------------------------------------------------- Stats -- */
