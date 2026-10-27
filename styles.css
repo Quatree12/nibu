@@ -200,6 +200,32 @@ a:hover { text-decoration: underline; }
 .nibu-scene[data-mood="celebrate"] .nibu-robot { animation: celebrate .9s cubic-bezier(.3,1.6,.4,1) 3; }
 @keyframes celebrate { 0%,100% { transform: translateY(0) rotate(0) } 35% { transform: translateY(-16px) rotate(-4deg) } 70% { transform: translateY(-6px) rotate(4deg) } }
 
+/* ------- Etats lies aux donnees reelles ------- */
+.nibu-visor-glow {
+  fill: none; stroke: var(--cyan); stroke-width: 2.4; opacity: 0;
+  transition: opacity .5s ease, stroke .5s ease;
+}
+.nibu-scene[data-energy="high"] .nibu-core { animation-duration: 1.5s; }
+.nibu-scene[data-energy="high"] .nibu-eye  { animation-duration: 1.9s; }
+.nibu-scene[data-energy="low"] .nibu-core  { animation-duration: 5s; opacity: .6; }
+.nibu-scene[data-energy="low"] .nibu-eye   { animation-duration: 6s; }
+.nibu-scene[data-energy="low"] .nibu-robot { animation-duration: 7.2s; }
+
+/* L'antenne s'incline selon l'energie et l'humeur */
+.nibu-antenna { transform-origin: 100px 34px; transition: transform .7s cubic-bezier(.22,.9,.3,1); }
+.nibu-scene[data-energy="low"] .nibu-antenna { transform: rotate(14deg); }
+.nibu-scene[data-mood="sleepy"] .nibu-antenna { transform: rotate(21deg); }
+.nibu-scene[data-mood="celebrate"] .nibu-antenna { transform: rotate(-12deg); }
+
+/* Lisere du visor : renforce l'humeur sans dependre de la seule couleur,
+   les libelles textuels (humeur, badges) restent toujours affiches. */
+.nibu-scene[data-mood="alert"] .nibu-visor-glow    { opacity: 1; stroke: var(--danger); }
+.nibu-scene[data-mood="happy"] .nibu-visor-glow,
+.nibu-scene[data-mood="celebrate"] .nibu-visor-glow { opacity: .75; stroke: var(--signal); }
+.nibu-scene[data-mood="focused"] .nibu-visor-glow   { opacity: .55; stroke: var(--violet); }
+.nibu-scene[data-mood="sleepy"] .nibu-visor-glow    { opacity: .18; }
+.nibu-scene[data-mood="alert"] .nibu-head rect[fill="url(#visorSheen)"] { opacity: .2; }
+
 .nibu-scene[data-reaction="spend"] .nibu-robot { animation: nudge .5s ease-out 2; }
 @keyframes nudge { 0%,100% { transform: translateY(0) scale(1) } 50% { transform: translateY(-6px) scale(1.03) } }
 .nibu-scene[data-reaction="done"] .nibu-robot,
@@ -233,8 +259,10 @@ a:hover { text-decoration: underline; }
   display: block; height: 100%; width: 100%; border-radius: 999px;
   background: linear-gradient(90deg, var(--cyan), var(--violet) 55%, var(--pink));
   box-shadow: 0 0 14px rgba(80,246,255,.55);
-  transition: width .6s cubic-bezier(.22,.9,.3,1);
+  transition: width .6s cubic-bezier(.22,.9,.3,1), background .4s ease;
 }
+.energy__fill.is-low { background: linear-gradient(90deg, var(--warn), var(--pink)); }
+.energy__fill.is-high { background: linear-gradient(90deg, var(--signal), var(--cyan) 60%, var(--violet)); }
 
 /* ----------------------------------------------------------------- Stats -- */
 .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
