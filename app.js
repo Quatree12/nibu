@@ -305,7 +305,8 @@
   function deriveMood() {
     var s = computeStats();
     if (s.overBudget) return 'alert';
-    if (s.urgent > 0 || s.soon > 0) return 'focused';
+    if (s.urgent > 0) return 'alert';
+    if (s.soon > 0) return 'focused';
     if (state.capsules.length === 0 && state.expenses.length === 0) return 'sleepy';
     if (s.active === 0) return 'happy';
     return 'neutral';
@@ -443,13 +444,28 @@
     $('#statColis').textContent = String(s.cmd);
     $('#statColisNote').textContent = s.cmd === 0 ? 'Rien en transit' : (s.cmd === 1 ? '1 commande en cours' : s.cmd + ' commandes en cours');
 
-    var e = 62 + Math.min(38, (state.xp % 200) / 200 * 38);
-    if (s.overBudget) e -= 12;
-    if (state.capsules.length === 0 && state.expenses.length === 0) e += 8;
-    e = Math.max(35, Math.min(100, Math.round(e)));
+    /* Energie : socle + XP reel, moins la charge en attente (retards, echeances
+       proches, budget depasse), plus un bonus quand tout est a jour. */
+    var e = 58 + Math.min(30, (state.xp % 300) / 300 * 30);
+    e -= s.urgent * 9;
+    e -= s.soon * 3;
+    if (s.overBudget) e -= 14;
+    if (state.capsules.length > 0 && s.active === 0) e += 16;
+    e = Math.max(20, Math.min(100, Math.round(e)));
+
+    var energyLevel = e >= 78 ? 'high' : (e <= 45 ? 'low' : 'mid');
+    var scene = $('#nibuScene');
+    if (scene.getAttribute('data-energy') !== energyLevel) scene.setAttribute('data-energy', energyLevel);
+    scene.setAttribute('data-xp', state.xp > 0 ? '1' : '0');
+
     $('#energyFill').style.width = e + '%';
+    $('#energyFill').className = 'energy__fill ' + (energyLevel === 'low' ? 'is-low' : energyLevel === 'high' ? 'is-high' : '');
     $('#energyLabel').textContent = e + ' %';
     $('#energyBar').setAttribute('aria-valuenow', String(e));
+    $('#energyBar').setAttribute('aria-valuetext', e + ' % · ' + (
+      energyLevel === 'high' ? 'en pleine forme' :
+      energyLevel === 'low' ? 'fatiguee, trop de choses en attente' : 'stable'));
+
     $('#levelLabel').textContent = String(levelInfo().level);
     $('#xpLabel').textContent = state.xp + ' XP';
     setMood(deriveMood());
@@ -722,7 +738,7 @@
       else toast('Commande mise a jour', '"' + c.title + '" est maintenant « ' + c.cmdStatus + ' ».', 'success');
       completeMission('update-pack');
       return;
-    fantastic }
+    }
     if (act === 'edit') { openCapsuleForm(c); return; }
     if (act === 'delete') {
       askConfirm('Supprimer cette capsule ?', '"' + c.title + '" sera definitivement supprimee de ce navigateur.', function () {
