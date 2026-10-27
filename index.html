@@ -55,19 +55,17 @@
 
 <main id="main">
 
-  <!-- =====================================================
-       A. ACCUEIL — LE MONDE DE NIBU
-       ===================================================== -->
+  <!-- A. ACCUEIL — LE MONDE DE NIBU -->
   <section class="view" id="view-accueil" data-view="accueil" aria-labelledby="h-accueil">
     <h1 class="sr-only" id="h-accueil">Accueil — le monde de NIBU</h1>
 
     <div class="hero">
       <div class="hero__stage">
         <div class="hero__halo" aria-hidden="true"></div>
-        <div class="nibu-scene" id="nibuScene" data-mood="neutral">
+        <div class="nibu-scene" id="nibuScene" data-mood="neutral" data-energy="mid">
           <svg class="nibu-robot" viewBox="0 0 200 240" role="img" aria-labelledby="nibuTitle nibuDesc">
             <title id="nibuTitle">NIBU, petit robot de compagnie</title>
-            <desc id="nibuDesc">Mini-robot futuriste en chrome et verre optique. Ses yeux lumineux et sa visiere changent selon son humeur.</desc>
+            <desc id="nibuDesc">Mini-robot futuriste en chrome et verre optique. Ses yeux lumineux, son antenne et le lisere de sa visiere changent selon son humeur et son energie.</desc>
             <defs>
               <linearGradient id="chrome" x1="0" y1="0" x2="0.8" y2="1">
                 <stop offset="0" stop-color="#F2F5FF"/>
@@ -120,6 +118,7 @@
               <rect x="46" y="52" width="108" height="62" rx="27" fill="url(#glass)"/>
               <rect x="46" y="52" width="108" height="62" rx="27" fill="url(#visorSheen)" opacity=".5"/>
               <rect x="46" y="52" width="108" height="62" rx="27" fill="none" stroke="#50F6FF" stroke-opacity=".55" stroke-width="1.2"/>
+              <rect class="nibu-visor-glow" x="46" y="52" width="108" height="62" rx="27"/>
               <path d="M56 66c14-9 40-11 56-6" stroke="#F2F5FF" stroke-opacity=".5" stroke-width="2.4" fill="none" stroke-linecap="round"/>
               <g class="nibu-eyes">
                 <ellipse class="nibu-eye" cx="78" cy="83" rx="13" ry="13" fill="url(#eyeGlow)"/>
@@ -225,9 +224,7 @@
     </div>
   </section>
 
-  <!-- =====================================================
-       B. BUDGET — LE CENTRE FINANCIER
-       ===================================================== -->
+  <!-- B. BUDGET — LE CENTRE FINANCIER -->
   <section class="view" id="view-budget" data-view="budget" aria-labelledby="h-budget" hidden>
     <h1 class="view__title" id="h-budget">CENTRE FINANCIER</h1>
     <p class="view__lead">Suivi manuel du budget hebdomadaire en CHF. Aucune connexion bancaire : tu saisies, NIBU calcule.</p>
@@ -295,9 +292,7 @@
     </section>
   </section>
 
-  <!-- =====================================================
-       C. CAPSULES — LA MEMOIRE DU QUOTIDIEN
-       ===================================================== -->
+  <!-- C. CAPSULES — LA MEMOIRE DU QUOTIDIEN -->
   <section class="view" id="view-capsules" data-view="capsules" aria-labelledby="h-caps" hidden>
     <h1 class="view__title" id="h-caps">MEMOIRE DU QUOTIDIEN</h1>
     <p class="view__lead">Chaque capsule est une information structuree, retrouvable en un coup d oeil.</p>
@@ -347,9 +342,7 @@
     </section>
   </section>
 
-  <!-- =====================================================
-       D. REGLAGES — LE CONTROLEUR DE NIBU
-       ===================================================== -->
+  <!-- D. REGLAGES — LE CONTROLEUR DE NIBU -->
   <section class="view" id="view-reglages" data-view="reglages" aria-labelledby="h-set" hidden>
     <h1 class="view__title" id="h-set">CONTROLEUR DE NIBU</h1>
 
@@ -437,7 +430,7 @@
   </section>
 </main>
 
-<!-- ===== Navigation persistante ===== -->
+<!-- Navigation persistante -->
 <nav class="tabbar" aria-label="Navigation principale">
   <button class="tab" type="button" data-nav="accueil" aria-current="page">
     <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 3.2 21 11h-2.6v8.4c0 .9-.7 1.6-1.6 1.6h-3.5v-5.6h-2.6V21H7.2c-.9 0-1.6-.7-1.6-1.6V11H3z"/></svg>
@@ -457,7 +450,7 @@
   </button>
 </nav>
 
-<!-- ===== Formulaire capsule ===== -->
+<!-- Formulaire capsule -->
 <div class="modal" id="capsuleModal" hidden>
   <div class="modal__backdrop" data-close="1"></div>
   <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="capModalTitle">
@@ -541,7 +534,7 @@
   </div>
 </div>
 
-<!-- ===== Modale de confirmation ===== -->
+<!-- Modale de confirmation -->
 <div class="modal" id="confirmModal" hidden>
   <div class="modal__backdrop" data-close="1"></div>
   <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
@@ -554,7 +547,7 @@
   </div>
 </div>
 
-<!-- ===== Modale de saisie ===== -->
+<!-- Modale de saisie -->
 <div class="modal" id="promptModal" hidden>
   <div class="modal__backdrop" data-close="1"></div>
   <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="promptTitle">
